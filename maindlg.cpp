@@ -17,6 +17,8 @@ LRESULT CMainDlg::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bH
 	SetDlgItemText(IDC_STATE, L"");
 	::EnableWindow(GetDlgItem(IDC_BTN_REMOVE_SIGN), FALSE);
 
+	DragAcceptFiles(TRUE);
+
 	return TRUE;
 }
 
@@ -182,5 +184,21 @@ LRESULT CMainDlg::OnBnClickedBtnRemoveSign(WORD wNotifyCode, WORD wID, HWND hWnd
 		SetDlgItemText(IDC_STATE, TEXT_SUCCESS);
 	}
 
+	return 0;
+}
+
+LRESULT CMainDlg::OnDropFiles(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+	HDROP hDrop = (HDROP)wParam;
+
+	// Check if only one file is dropped
+	UINT numFiles = DragQueryFile(hDrop, 0xFFFFFFFF, nullptr, 0);
+	if (numFiles == 1) {
+		WCHAR filePath[MAX_PATH];
+		DragQueryFile(hDrop, 0, filePath, MAX_PATH);
+		SetDlgItemText(IDC_PEFILE, filePath);
+	}
+
+	DragFinish(hDrop);
+	bHandled = TRUE;
 	return 0;
 }

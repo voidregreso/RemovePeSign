@@ -24,6 +24,7 @@ public:
 		COMMAND_HANDLER(IDC_BTN_REMOVE_SIGN, BN_CLICKED, OnBnClickedBtnRemoveSign)
 		COMMAND_HANDLER(IDC_BTN_SAVE, BN_CLICKED, OnBnClickedBtnSave)
 		COMMAND_HANDLER(IDC_BTN_SELECT, BN_CLICKED, OnBnClickedBtnSelect)
+		MESSAGE_HANDLER(WM_DROPFILES, OnDropFiles)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
 		COMMAND_ID_HANDLER(IDOK, OnOK)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
@@ -47,6 +48,8 @@ public:
 	LRESULT OnEnChange(WORD, WORD wID, HANDLE hEdit, BOOL& bHandled);
 
 	LRESULT OnBnClickedBtnRemoveSign(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+
+	LRESULT OnDropFiles(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 };
 
 /////////////////////////////////////////////////////////////////////////////
